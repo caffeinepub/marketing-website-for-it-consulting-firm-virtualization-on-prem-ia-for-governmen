@@ -1,5 +1,6 @@
 import { ArrowRight, Shield, Server, Lock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { BRANDING } from '../../../config/branding';
 
 export default function HomeHeroSection() {
   const scrollToContact = () => {
@@ -13,6 +14,21 @@ export default function HomeHeroSection() {
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Content */}
           <div className="space-y-8 animate-fade-in">
+            {/* Brand Lockup */}
+            <div className="flex items-center gap-4 mb-6">
+              <img
+                src="/assets/generated/falconrock-logo.dim_512x512.png"
+                alt={BRANDING.companyName}
+                className="h-20 w-20 md:h-24 md:w-24"
+              />
+              <div>
+                <h2 className="text-3xl md:text-4xl font-bold text-foreground">
+                  {BRANDING.companyName}
+                </h2>
+                <p className="text-lg text-muted-foreground mt-1">{BRANDING.tagline}</p>
+              </div>
+            </div>
+
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium">
               <Shield className="h-4 w-4" />
               Trusted by Government Agencies

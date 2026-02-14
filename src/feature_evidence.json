@@ -2,12 +2,27 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-update-the-project-s-deployment-facing-name-slug-source-so-it-generates-a-valid-domain-label-5-50-characters-only-lowercase-letters-numbers-and-hyphens-and-does-not-include-parentheses-plus-signs-spaces-or-non-ascii-hyphen-characters",
-      "featureTitle": "Update the project’s deployment-facing name/slug source so it generates a valid domain label (5–50 characters; only lowercase letters, numbers, and hyphens) and does not include parentheses, plus signs, spaces, or non-ASCII hyphen characters.",
+      "featureId": "feature-generate-a-new-static-falconrock-logo-image-asset-and-add-it-to-the-frontend-static-assets-directory-so-it-can-be-used-in-the-header-and-home-page",
+      "featureTitle": "Generate a new static Falconrock logo image asset and add it to the frontend static assets directory so it can be used in the header and Home page.",
+      "files": [],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-12"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-remove-the-existing-top-left-header-logo-image-and-replace-it-with-the-newly-generated-falconrock-logo-keeping-the-header-branding-company-name-tagline-intact",
+      "featureTitle": "Remove the existing top-left header logo image and replace it with the newly generated Falconrock logo, keeping the header branding (company name/tagline) intact.",
       "files": [
-        "frontend/src/App.tsx",
-        "frontend/src/config/branding.ts",
-        "frontend/src/utils/slug.ts"
+        "frontend/src/components/Navigation/SiteHeader.tsx"
       ],
       "components": [
         "authorization@4.0.0",
@@ -18,7 +33,26 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-10"
+        "REQ-13"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-make-the-company-name-falconrock-consulting-more-prominent-on-the-home-page-by-adjusting-the-hero-content-hierarchy-to-feature-the-company-name-strongly-and-include-the-new-logo-in-the-home-hero-area",
+      "featureTitle": "Make the company name “Falconrock Consulting” more prominent on the Home page by adjusting the hero content hierarchy to feature the company name strongly (and include the new logo in the Home hero area).",
+      "files": [
+        "frontend/src/components/MarketingSite/sections/HomeHeroSection.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-14"
       ],
       "confidence": "high"
     }

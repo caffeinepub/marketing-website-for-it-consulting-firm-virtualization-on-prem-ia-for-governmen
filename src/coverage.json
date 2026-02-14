@@ -1,39 +1,47 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-14T21:18:11.057Z",
+  "generatedAt": "2026-02-14T23:42:17.985Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 2,
-    "implemented": 1,
+    "total": 3,
+    "implemented": 3,
     "items": [
       {
-        "id": "REQ-10",
-        "summary": "Update the project’s deployment-facing name/slug source so it generates a valid domain label (5–50 characters; only lowercase letters, numbers, and hyphens) and does not include parentheses, plus signs, spaces, or non-ASCII hyphen characters.",
+        "id": "REQ-12",
+        "summary": "Generate a new static Falconrock logo image asset and add it to the frontend static assets directory so it can be used in the header and Home page.",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/utils/slug.ts",
-          "frontend/src/config/branding.ts",
-          "frontend/src/App.tsx"
+          "frontend/public/assets/generated/falconrock-logo.dim_512x512.png"
         ],
         "matchedFiles": [
-          "frontend/src/utils/slug.ts",
-          "frontend/src/config/branding.ts",
-          "frontend/src/App.tsx"
+          "frontend/public/assets/generated/falconrock-logo.dim_512x512.png"
         ]
       },
       {
-        "id": "REQ-11",
-        "summary": "In project_state.json, change the value that is currently used as the project name (\"Falconrock Consulting (virtualization + on‑prem IA for government contracts)\") to a slug-safe value that meets the domain/slug constraints.",
-        "status": "missing",
+        "id": "REQ-13",
+        "summary": "Remove the existing top-left header logo image and replace it with the newly generated Falconrock logo, keeping the header branding (company name/tagline) intact.",
+        "status": "implemented",
         "plannedFiles": [
-          "frontend/scripts/patch-project-state-projectName.ts",
-          "frontend/scripts/README.md"
+          "frontend/src/components/Navigation/SiteHeader.tsx"
         ],
-        "matchedFiles": []
+        "matchedFiles": [
+          "frontend/src/components/Navigation/SiteHeader.tsx"
+        ]
+      },
+      {
+        "id": "REQ-14",
+        "summary": "Make the company name “Falconrock Consulting” more prominent on the Home page by adjusting the hero content hierarchy to feature the company name strongly (and include the new logo in the Home hero area).",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/components/MarketingSite/sections/HomeHeroSection.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/components/MarketingSite/sections/HomeHeroSection.tsx"
+        ]
       }
     ]
   },
@@ -42,9 +50,9 @@
     "feature_evidence.json",
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
-    "frontend/src/App.tsx",
-    "frontend/src/config/branding.ts",
-    "frontend/src/utils/slug.ts",
+    "frontend/public/assets/generated/falconrock-logo.dim_512x512.png",
+    "frontend/src/components/MarketingSite/sections/HomeHeroSection.tsx",
+    "frontend/src/components/Navigation/SiteHeader.tsx",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",

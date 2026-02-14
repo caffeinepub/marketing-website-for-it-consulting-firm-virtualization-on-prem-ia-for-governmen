@@ -56,7 +56,7 @@ export default function SiteHeader({ currentView, onViewChange }: SiteHeaderProp
             className="flex items-center gap-3 hover:opacity-80 transition-opacity"
           >
             <img
-              src="/assets/generated/it-consulting-logo.dim_512x512.png"
+              src="/assets/generated/falconrock-logo.dim_512x512.png"
               alt={BRANDING.companyName}
               className="h-10 w-10"
             />

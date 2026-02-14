@@ -1,44 +1,26 @@
 {
   "kind": "spec_vs_diff_report",
   "version": "1.0",
-  "generatedAt": "2026-02-14T21:18:11.054Z",
-  "summary": "The diff adds a frontend slug generation/validation utility and uses it in frontend branding config with a runtime console check, but it does not show the requested update to the deployment-facing project name/slug source in project_state.json. As a result, the core fix intended to unblock deployment via the project’s deployment slug appears incomplete.",
+  "generatedAt": "2026-02-14T23:42:17.983Z",
+  "summary": "Home hero and site header were updated to use a new Falconrock logo path and to show a prominent brand lockup, but the actual new static logo asset file was not added in the diff summary.",
   "missing_requirements": [
     {
-      "id": "REQ-10",
-      "requirement": "Update the project’s deployment-facing name/slug source so it generates a valid domain label (5–50 characters; only lowercase letters, numbers, and hyphens) and does not include parentheses, plus signs, spaces, or non-ASCII hyphen characters.",
-      "reason": "The diff updates frontend branding to compute a deploymentSlug, but does not provide evidence that the actual deployment-facing name/slug source used by the deployment system was changed. No deployment config/source-of-truth change is shown outside frontend runtime logging.",
+      "id": "REQ-12",
+      "requirement": "Generate a new static Falconrock logo image asset and add it to the frontend static assets directory (frontend/public/assets/generated) using the exact filename falconrock-logo.dim_512x512.png.",
+      "reason": "The diff shows code now referencing /assets/generated/falconrock-logo.dim_512x512.png, but there are no added files, so the required image asset itself is not present in the change summary.",
       "evidence": [
-        "frontend/src/config/branding.ts",
-        "frontend/src/App.tsx",
-        "frontend/src/utils/slug.ts",
-        "project_state.json"
-      ]
-    },
-    {
-      "id": "REQ-11",
-      "requirement": "In project_state.json, change the value that is currently used as the project name (\"Falconrock Consulting (virtualization + on‑prem IA for government contracts)\") to a slug-safe value that meets the domain/slug constraints.",
-      "reason": "No evidence in the provided diff summary shows the project name value in project_state.json being changed to a slug-safe string; the truncated snippet still contains non-ASCII hyphen usage (\"on‑prem\") and parentheses in descriptive text, suggesting the problematic content may remain.",
-      "evidence": [
-        "project_state.json"
+        "File diff summary: \"Added: 0\"",
+        "frontend/src/components/Navigation/SiteHeader.tsx (references /assets/generated/falconrock-logo.dim_512x512.png)",
+        "frontend/src/components/MarketingSite/sections/HomeHeroSection.tsx (references /assets/generated/falconrock-logo.dim_512x512.png)"
       ]
     }
   ],
-  "hallucinated_features": [
-    {
-      "description": "Runtime deployment slug validation that logs to the browser console on app load.",
-      "reason": "The BuildRequest focuses on fixing deployment failure by updating the deployment-facing name/slug source (and explicitly updating project_state.json). Adding a non-blocking runtime console validator is not requested as part of the fix.",
-      "evidence": [
-        "frontend/src/App.tsx"
-      ]
-    }
-  ],
+  "hallucinated_features": [],
   "confidence": 0.72,
   "changed_files": [
     "frontend-file-summaries.txt",
-    "frontend/src/App.tsx",
-    "frontend/src/config/branding.ts",
-    "frontend/src/utils/slug.ts",
+    "frontend/src/components/MarketingSite/sections/HomeHeroSection.tsx",
+    "frontend/src/components/Navigation/SiteHeader.tsx",
     "project_state.json"
   ]
 }

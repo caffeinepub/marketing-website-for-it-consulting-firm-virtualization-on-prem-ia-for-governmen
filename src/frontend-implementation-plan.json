@@ -1,52 +1,52 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Fix invalid generated deployment slug/domain label",
+  "title": "Prominent Falconrock Consulting branding on Home hero and updated header logo",
   "requirements": [
     {
-      "id": "REQ-10",
-      "summary": "Centralize slug generation in the frontend to always produce a valid deployment-facing domain label (5–50 chars, lowercase letters/numbers/hyphens only) and avoid parentheses/plus/spaces/non-ASCII hyphens.",
+      "id": "REQ-12",
+      "summary": "Add a newly generated Falconrock logo mark as a static frontend asset for reuse in header and Home hero.",
       "acceptanceCriteria": [
-        "A deployment no longer fails with the domain/slug validation error shown in the issue.",
-        "The generated domain/slug value is between 5 and 50 characters.",
-        "The generated domain/slug value contains only letters, numbers, and hyphens (no spaces, parentheses, plus signs, or special hyphen characters)."
+        "A new logo image is generated and available under frontend/public/assets/generated using the exact filename specified in imageRequirements.required.",
+        "The generated logo has a transparent background (or otherwise works cleanly on the site header/backgrounds) and remains legible at small sizes (e.g., 40x40) and medium sizes (e.g., 96x96)."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/utils/slug.ts",
+          "path": "frontend/public/assets/generated/falconrock-logo.dim_512x512.png",
           "operation": "create",
-          "description": "Add a small utility that converts arbitrary project names into a valid domain-label slug: normalize Unicode hyphen-like characters to ASCII '-', lowercase, replace invalid separators (spaces/parentheses/plus) with '-', strip any remaining invalid characters, collapse consecutive hyphens, trim leading/trailing hyphens, and enforce 5–50 character length (including deterministic truncation if needed)."
-        },
-        {
-          "path": "frontend/src/config/branding.ts",
-          "operation": "modify",
-          "description": "Introduce a dedicated deployment-facing slug value derived via the new slug utility (e.g., `deploymentSlug`) without changing the public branding domain (falconrock.app). Ensure the derived value is the one used wherever a deployment slug/domain label is surfaced or computed within the frontend build/runtime."
-        },
-        {
-          "path": "frontend/src/App.tsx",
-          "operation": "modify",
-          "description": "Add a lightweight runtime validation (non-blocking) that checks the configured/generated deployment slug against the domain-label constraints and logs a clear error if invalid, so issues are caught during local builds before deployment."
+          "description": "Add the generated Falconrock logo mark asset (transparent background) as a static file so it can be referenced by the header and Home hero."
         }
       ]
     },
     {
-      "id": "REQ-11",
-      "summary": "Ensure the project name value used for deployment slug generation is slug-safe by providing a frontend-maintained patch workflow to update the stored project name to a compliant slug value.",
+      "id": "REQ-13",
+      "summary": "Replace the existing header logo image with the new Falconrock logo while keeping the header name/tagline intact.",
       "acceptanceCriteria": [
-        "project_state.json no longer contains parentheses/plus signs/non-ASCII hyphen characters in the project name value used for domain/slug generation.",
-        "The updated project name value is 5–50 characters and contains only letters, numbers, and hyphens.",
-        "Deployment proceeds past the domain/slug validation step using the updated value."
+        "The header no longer renders /assets/generated/it-consulting-logo.dim_512x512.png in the top-left branding area (see frontend/src/components/Navigation/SiteHeader.tsx).",
+        "The top-left branding area renders the new Falconrock logo asset instead, with appropriate alt text referencing the company name.",
+        "No other site sections unexpectedly lose images (e.g., the hero image remains unchanged)."
       ],
       "file_operations": [
         {
-          "path": "frontend/scripts/patch-project-state-projectName.ts",
-          "operation": "create",
-          "description": "Create a small Node/TS script that updates the repository's project_state.json `projectName` to a slug-safe value (e.g., `falconrock-consulting-virtualization-on-prem-ia`) that meets the 5–50 character and character-set constraints. The script should be idempotent and should explicitly replace parentheses/plus/non-ASCII hyphens with safe characters, then validate before writing."
-        },
+          "path": "frontend/src/components/Navigation/SiteHeader.tsx",
+          "operation": "modify",
+          "description": "Update the top-left branding image to use frontend/public/assets/generated/falconrock-logo.dim_512x512.png instead of the existing it-consulting logo, keeping the company name/tagline rendering unchanged and ensuring alt text references BRANDING.companyName."
+        }
+      ]
+    },
+    {
+      "id": "REQ-14",
+      "summary": "Adjust the Home hero hierarchy to strongly feature “Falconrock Consulting” and include the new logo in the hero area.",
+      "acceptanceCriteria": [
+        "The Home hero section (frontend/src/components/MarketingSite/sections/HomeHeroSection.tsx) clearly features “Falconrock Consulting” as a primary visual element (e.g., headline/brand lockup) on initial page load.",
+        "The new Falconrock logo is visible on the Home hero section without breaking layout on mobile and desktop.",
+        "User-facing text uses correct capitalization/spelling: “Falconrock Consulting” (even if the user typed variants)."
+      ],
+      "file_operations": [
         {
-          "path": "frontend/scripts/README.md",
-          "operation": "create",
-          "description": "Document how to run the project_state.json patch script locally/CI to ensure the stored project name used for deployment slug generation remains compliant, and note the exact constraints (5–50 chars; lowercase letters/numbers/hyphens only)."
+          "path": "frontend/src/components/MarketingSite/sections/HomeHeroSection.tsx",
+          "operation": "modify",
+          "description": "Rework the hero content to introduce a prominent brand lockup that includes the logo (frontend/public/assets/generated/falconrock-logo.dim_512x512.png) and the company name “Falconrock Consulting” as the primary visual element (use BRANDING.companyName), while preserving the existing hero background image and maintaining responsive layout."
         }
       ]
     }

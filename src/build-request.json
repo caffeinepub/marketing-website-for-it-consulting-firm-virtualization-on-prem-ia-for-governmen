@@ -1,55 +1,86 @@
 {
   "kind": "build_request",
-  "title": "Fix invalid generated domain/slug causing deployment failure",
-  "priority": "high",
+  "title": "Make Falconrock Consulting branding more prominent on the Home page and replace the header logo",
+  "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-10",
-      "text": "Update the project’s deployment-facing name/slug source so it generates a valid domain label (5–50 characters; only lowercase letters, numbers, and hyphens) and does not include parentheses, plus signs, spaces, or non-ASCII hyphen characters.",
-      "target": "unknown",
+      "id": "REQ-12",
+      "text": "Generate a new static Falconrock logo image asset and add it to the frontend static assets directory so it can be used in the header and Home page.",
+      "target": "frontend",
       "source": {
         "messageIds": [
-          "recent-messages"
+          "user-msg-1"
         ],
         "quotes": [
-          "Domain falconrock-consulting-(virtualization-+-on‑prem-ia must be between 5 and 50 characters and contain only letters, numbers, and hyphens."
+          "Also make me a flaconrock logo and put it on the home page"
         ]
       },
       "acceptanceCriteria": [
-        "A deployment no longer fails with the domain/slug validation error shown in the issue.",
-        "The generated domain/slug value is between 5 and 50 characters.",
-        "The generated domain/slug value contains only letters, numbers, and hyphens (no spaces, parentheses, plus signs, or special hyphen characters)."
+        "A new logo image is generated and available under frontend/public/assets/generated using the exact filename specified in imageRequirements.required.",
+        "The generated logo has a transparent background (or otherwise works cleanly on the site header/backgrounds) and remains legible at small sizes (e.g., 40x40) and medium sizes (e.g., 96x96)."
       ]
     },
     {
-      "id": "REQ-11",
-      "text": "In project_state.json, change the value that is currently used as the project name (\"Falconrock Consulting (virtualization + on‑prem IA for government contracts)\") to a slug-safe value that meets the domain/slug constraints.",
-      "target": "unknown",
+      "id": "REQ-13",
+      "text": "Remove the existing top-left header logo image and replace it with the newly generated Falconrock logo, keeping the header branding (company name/tagline) intact.",
+      "target": "frontend",
       "source": {
         "messageIds": [
-          "recent-messages"
+          "user-msg-1"
         ],
         "quotes": [
-          "Fix this issue:\n\nDomain falconrock-consulting-(virtualization-+-on‑prem-ia must be between 5 and 50 characters and contain only letters, numbers, and hyphens."
+          "remove the existing logo that in the top left."
         ]
       },
       "acceptanceCriteria": [
-        "project_state.json no longer contains parentheses/plus signs/non-ASCII hyphen characters in the project name value used for domain/slug generation.",
-        "The updated project name value is 5–50 characters and contains only letters, numbers, and hyphens.",
-        "Deployment proceeds past the domain/slug validation step using the updated value."
+        "The header no longer renders /assets/generated/it-consulting-logo.dim_512x512.png in the top-left branding area (see frontend/src/components/Navigation/SiteHeader.tsx).",
+        "The top-left branding area renders the new Falconrock logo asset instead, with appropriate alt text referencing the company name.",
+        "No other site sections unexpectedly lose images (e.g., the hero image remains unchanged)."
+      ]
+    },
+    {
+      "id": "REQ-14",
+      "text": "Make the company name “Falconrock Consulting” more prominent on the Home page by adjusting the hero content hierarchy to feature the company name strongly (and include the new logo in the Home hero area).",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "user-msg-1"
+        ],
+        "quotes": [
+          "I want my company name falcon rock consulting to be more prominent on the home page."
+        ]
+      },
+      "acceptanceCriteria": [
+        "The Home hero section (frontend/src/components/MarketingSite/sections/HomeHeroSection.tsx) clearly features “Falconrock Consulting” as a primary visual element (e.g., headline/brand lockup) on initial page load.",
+        "The new Falconrock logo is visible on the Home hero section without breaking layout on mobile and desktop.",
+        "User-facing text uses correct capitalization/spelling: “Falconrock Consulting” (even if the user typed variants)."
       ]
     }
   ],
   "constraints": [
-    "Use English for any user-facing text.",
-    "Do not modify files under frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, or anything under frontend/src/components/ui."
+    "Do not edit files under frontend/src/components/ui (compose them instead).",
+    "Do not edit immutable hook/entry files listed in SYSTEM_CONTEXT (frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, frontend/src/main.tsx).",
+    "Keep backend as a single Motoko actor; no backend changes are required for this request."
   ],
   "nonGoals": [
-    "Do not change the public website branding domain (falconrock.app) shown in frontend/src/config/branding.ts unless required to resolve the deployment error.",
-    "Do not add new marketing site pages or new backend features as part of this fix."
+    "Redesigning non-home sections (Services/Capabilities/About/Contact) beyond what is necessary to maintain consistent branding.",
+    "Changing the hero background image (/assets/generated/hero-datacenter.dim_1600x900.png) unless required for logo/name legibility.",
+    "Any changes to authentication, admin features, or contact inquiry backend/storage."
   ],
   "imageRequirements": {
-    "required": [],
+    "required": [
+      "Falconrock logo mark, modern minimalist, strong geometric shape, no text, transparent background (falconrock-logo.dim_512x512.png)"
+    ],
     "edits": []
+  },
+  "userProfileUpdate": {
+    "goalsToAdd": [],
+    "goalsToRemove": [],
+    "preferencesToAdd": [],
+    "preferencesToRemove": [],
+    "miscToAdd": [],
+    "miscToRemove": [],
+    "fieldsToSet": {},
+    "fieldsToDelete": []
   }
 }

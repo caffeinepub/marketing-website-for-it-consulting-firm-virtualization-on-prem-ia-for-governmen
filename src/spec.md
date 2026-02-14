@@ -1,10 +1,11 @@
 # Specification
 
 ## Summary
-**Goal:** Fix deployment failures caused by an invalid generated project domain/slug by ensuring the deployment-facing name/slug source produces a valid domain label.
+**Goal:** Make Falconrock Consulting branding more prominent on the Home page and replace the header logo with a new Falconrock logo.
 
 **Planned changes:**
-- Update the project’s deployment-facing name/slug source so it generates a valid domain label (5–50 characters; only lowercase letters, numbers, and hyphens) without parentheses, plus signs, spaces, or non-ASCII hyphen characters.
-- Update `project_state.json` to replace the current project name value used for domain/slug generation with a slug-safe value that meets the same constraints.
+- Generate and add a new static Falconrock logo asset to `frontend/public/assets/generated` for use across the site.
+- Replace the current top-left header logo with the new Falconrock logo while keeping the existing header company name/tagline intact.
+- Update the Home hero section to feature “Falconrock Consulting” more prominently and display the new logo in the hero area without breaking mobile/desktop layout.
 
-**User-visible outcome:** Deployments proceed past the domain/slug validation step without failing due to invalid domain/slug characters or length.
+**User-visible outcome:** The site header and Home page hero clearly display Falconrock Consulting branding, with the new Falconrock logo shown in the header and alongside a more prominent “Falconrock Consulting” on the Home page.
