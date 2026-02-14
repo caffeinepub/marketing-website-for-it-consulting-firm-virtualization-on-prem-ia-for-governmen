@@ -1,0 +1,147 @@
+{
+  "kind": "build_request",
+  "title": "Marketing website for IT consulting firm (virtualization + on‑prem IA for government contracts)",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "text": "Create a responsive marketing website for an IT consulting company specializing in virtualization and on‑prem infrastructure / IA work for government contracts.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "Can u build me a website that will for my IT consulting company that works virtualization and on prem IA for government contracts"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Site renders correctly on mobile, tablet, and desktop breakpoints",
+        "Clear positioning statement references virtualization and on‑prem infrastructure/IA for government contracts",
+        "All user-facing text is in English"
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "text": "Implement core site pages/sections with clear navigation: Home (hero + value proposition), Services, Capabilities (government contracting/IA-focused), About, and Contact.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "website ... for my IT consulting company ... virtualization and on prem IA for government contracts"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Top navigation links scroll or route to each major section/page",
+        "Each section contains concise, professional copy and headings relevant to virtualization, on‑prem infrastructure, and IA for government work",
+        "Layout remains readable and usable without horizontal scrolling at common viewport widths"
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "text": "Add a Contact form that collects name, organization, email, and message, validates inputs, and submits to the backend; show success and error states.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "build me a website ... for my IT consulting company"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Form validates required fields and email format before submit",
+        "On successful submit, user sees a confirmation state and the form resets",
+        "On failure, user sees an error message and can retry"
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "text": "Implement backend support to store contact inquiries (timestamped) and expose query methods to list and read inquiries for an authenticated admin user using Internet Identity.",
+      "target": "backend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "build me a website ... for my IT consulting company"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Backend stores inquiries persistently in the single main Motoko actor",
+        "Each stored inquiry includes submitted fields plus createdAt timestamp",
+        "Backend provides a method to create an inquiry and a method to list inquiries restricted to an admin principal",
+        "Unauthorized principals cannot list inquiries"
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "text": "Add an admin-only UI view that lets a signed-in admin review submitted contact inquiries (basic list + detail view).",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "build me a website ... for my IT consulting company"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Admin view requires Internet Identity sign-in",
+        "Non-admin users cannot access inquiry listings in the UI",
+        "Admin can view a list of inquiries and open an inquiry to see full details"
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "text": "Apply a coherent, distinctive visual theme appropriate for a government-facing IT consultancy (color palette, typography, spacing, and component styling) and enforce it consistently across all pages/sections (avoid blue/purple as the dominant theme).",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Theme is consistent across headings, body text, buttons, cards, and navigation",
+        "Primary palette is not predominantly blue/purple",
+        "Design feels professional, high-trust, and accessible (sufficient contrast for text and controls)"
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "text": "Add generated static image assets (logo + hero visual) to the frontend and render them in the layout (e.g., navbar/hero) from the static assets directory.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Generated images are included as static assets under frontend/public/assets/generated",
+        "Logo is used in the site header/navigation",
+        "Hero visual is used in the Home hero section and scales responsively"
+      ]
+    }
+  ],
+  "constraints": [
+    "Backend must remain a single Motoko actor (all logic in backend/main.mo).",
+    "Do not edit any files under frontend immutable paths: frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, frontend/src/components/ui (compose these instead).",
+    "No third-party authentication providers; only Internet Identity for admin access.",
+    "No external databases or external email/SMS providers."
+  ],
+  "nonGoals": [
+    "Implementing a full CRM, ticketing system, or real-time chat",
+    "Integrating maps/geolocation features",
+    "Sending emails from the contact form via third-party email services",
+    "Building a multi-tenant portal for multiple clients/agencies"
+  ],
+  "imageRequirements": {
+    "required": [
+      "Minimalist consulting company logo mark (it-consulting-logo.dim_512x512.png)",
+      "Wide hero illustration of an on‑prem data center / virtualization concept in a clean, modern style (hero-datacenter.dim_1600x900.png)"
+    ],
+    "edits": []
+  }
+}

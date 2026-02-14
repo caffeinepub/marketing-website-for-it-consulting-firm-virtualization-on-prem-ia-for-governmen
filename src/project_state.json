@@ -1,0 +1,79 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 3,
+  "summary": "Website for an IT consulting company focused on virtualization and on‑prem infrastructure/IA for government contracts.",
+  "architectural_notes": [],
+  "known_issues": [],
+  "isFixRequest": false,
+  "imageRequirements": "## Required Images\n- Minimalist consulting company logo mark (it-consulting-logo.dim_512x512.png)\n- Wide hero illustration of an on‑prem data center / virtualization concept in a clean, modern style (hero-datacenter.dim_1600x900.png)",
+  "existing_features": [
+    {
+      "id": "feature-create-a-responsive-marketing-website-for-an-it-consulting-company-specializing-in-virtualization-and-on-prem-infrastructure-ia-work-for-government-contracts",
+      "title": "Create a responsive marketing website for an IT consulting company specializing in virtualization and on‑prem infrastructure / IA work for government contracts.",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-core-site-pages-sections-with-clear-navigation-home-hero-value-proposition-services-capabilities-government-contracting-ia-focused-about-and-contact",
+      "title": "Implement core site pages/sections with clear navigation: Home (hero + value proposition), Services, Capabilities (government contracting/IA-focused), About, and Contact.",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-contact-form-that-collects-name-organization-email-and-message-validates-inputs-and-submits-to-the-backend-show-success-and-error-states",
+      "title": "Add a Contact form that collects name, organization, email, and message, validates inputs, and submits to the backend; show success and error states.",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-an-admin-only-ui-view-that-lets-a-signed-in-admin-review-submitted-contact-inquiries-basic-list-detail-view",
+      "title": "Add an admin-only UI view that lets a signed-in admin review submitted contact inquiries (basic list + detail view).",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-apply-a-coherent-distinctive-visual-theme-appropriate-for-a-government-facing-it-consultancy-color-palette-typography-spacing-and-component-styling-and-enforce-it-consistently-across-all-pages-sections-avoid-blue-purple-as-the-dominant-theme",
+      "title": "Apply a coherent, distinctive visual theme appropriate for a government-facing IT consultancy (color palette, typography, spacing, and component styling) and enforce it consistently across all pages/sections (avoid blue/purple as the dominant theme).",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-generated-static-image-assets-logo-hero-visual-to-the-frontend-and-render-them-in-the-layout-e-g-navbar-hero-from-the-static-assets-directory",
+      "title": "Add generated static image assets (logo + hero visual) to the frontend and render them in the layout (e.g., navbar/hero) from the static assets directory.",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Build a clean, professional website for an IT consulting company specializing in virtualization and on‑prem infrastructure/IA for government contracts (services/capabilities showcase).",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-5",
+      "summary": "Implement backend support to store contact inquiries (timestamped) and expose query methods to list and read inquiries for an authenticated admin user using Internet Identity.",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "status": "pending"
+    }
+  ],
+  "gameProjectType": "none",
+  "projectName": "Marketing website for IT consulting firm (virtualization + on‑prem IA for government contracts)",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}

@@ -1,0 +1,140 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-create-a-responsive-marketing-website-for-an-it-consulting-company-specializing-in-virtualization-and-on-prem-infrastructure-ia-work-for-government-contracts",
+      "featureTitle": "Create a responsive marketing website for an IT consulting company specializing in virtualization and on‑prem infrastructure / IA work for government contracts.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/Layout/SiteLayout.tsx",
+        "frontend/src/components/MarketingSite/MarketingSite.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-1"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-core-site-pages-sections-with-clear-navigation-home-hero-value-proposition-services-capabilities-government-contracting-ia-focused-about-and-contact",
+      "featureTitle": "Implement core site pages/sections with clear navigation: Home (hero + value proposition), Services, Capabilities (government contracting/IA-focused), About, and Contact.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/MarketingSite/MarketingSite.tsx",
+        "frontend/src/components/MarketingSite/sections/AboutSection.tsx",
+        "frontend/src/components/MarketingSite/sections/CapabilitiesSection.tsx",
+        "frontend/src/components/MarketingSite/sections/ContactSection.tsx",
+        "frontend/src/components/MarketingSite/sections/HomeHeroSection.tsx",
+        "frontend/src/components/MarketingSite/sections/ServicesSection.tsx",
+        "frontend/src/components/Navigation/SiteHeader.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-2"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-a-contact-form-that-collects-name-organization-email-and-message-validates-inputs-and-submits-to-the-backend-show-success-and-error-states",
+      "featureTitle": "Add a Contact form that collects name, organization, email, and message, validates inputs, and submits to the backend; show success and error states.",
+      "files": [
+        "frontend/src/components/Contact/ContactForm.tsx",
+        "frontend/src/components/MarketingSite/sections/ContactSection.tsx",
+        "frontend/src/hooks/useSubmitContactInquiry.ts"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-3"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-an-admin-only-ui-view-that-lets-a-signed-in-admin-review-submitted-contact-inquiries-basic-list-detail-view",
+      "featureTitle": "Add an admin-only UI view that lets a signed-in admin review submitted contact inquiries (basic list + detail view).",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/Admin/AdminInquiriesPage.tsx",
+        "frontend/src/components/Admin/AdminRouteGuard.tsx",
+        "frontend/src/components/Auth/LoginButton.tsx",
+        "frontend/src/components/Auth/ProfileSetupDialog.tsx",
+        "frontend/src/components/Navigation/SiteHeader.tsx",
+        "frontend/src/hooks/useAdminInquiries.ts"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-5"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-apply-a-coherent-distinctive-visual-theme-appropriate-for-a-government-facing-it-consultancy-color-palette-typography-spacing-and-component-styling-and-enforce-it-consistently-across-all-pages-sections-avoid-blue-purple-as-the-dominant-theme",
+      "featureTitle": "Apply a coherent, distinctive visual theme appropriate for a government-facing IT consultancy (color palette, typography, spacing, and component styling) and enforce it consistently across all pages/sections (avoid blue/purple as the dominant theme).",
+      "files": [
+        "frontend/src/components/Contact/ContactForm.tsx",
+        "frontend/src/components/Layout/SiteLayout.tsx",
+        "frontend/src/index.css",
+        "frontend/tailwind.config.js"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-6"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-generated-static-image-assets-logo-hero-visual-to-the-frontend-and-render-them-in-the-layout-e-g-navbar-hero-from-the-static-assets-directory",
+      "featureTitle": "Add generated static image assets (logo + hero visual) to the frontend and render them in the layout (e.g., navbar/hero) from the static assets directory.",
+      "files": [
+        "frontend/src/components/MarketingSite/sections/HomeHeroSection.tsx",
+        "frontend/src/components/Navigation/SiteHeader.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-7"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,90 @@
+{
+  "kind": "spec_vs_diff_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-14T20:58:42.226Z",
+  "summary": "Most frontend sections/pages, contact form submission flow, and an admin inquiries view are implemented. The backend includes inquiry submission and admin-only listing/detail methods, but persistent storage across upgrades is not evidenced, and the stored timestamp field name does not match the requested `createdAt`. The diff also introduces several features and mechanisms not requested (user profiles, admin secret-token initialization, and branding/footer attribution).",
+  "missing_requirements": [
+    {
+      "id": "REQ-4",
+      "requirement": "Backend stores inquiries persistently in the single main Motoko actor.",
+      "reason": "The diff shows inquiries stored in in-memory `Map`/`var` fields with no `stable` variables or upgrade hooks; persistence across canister upgrades is not evidenced.",
+      "evidence": [
+        "backend/main.mo"
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "requirement": "Each stored inquiry includes submitted fields plus createdAt timestamp.",
+      "reason": "Inquiry records use a `submittedAt` field rather than the specified `createdAt` timestamp field.",
+      "evidence": [
+        "backend/main.mo"
+      ]
+    }
+  ],
+  "hallucinated_features": [
+    {
+      "description": "User profile system (get/save caller profile) and a mandatory profile setup dialog after login.",
+      "reason": "The BuildRequest does not mention user profiles or onboarding/profile collection; only admin access via Internet Identity was requested.",
+      "evidence": [
+        "backend/main.mo",
+        "frontend/src/components/Auth/ProfileSetupDialog.tsx",
+        "frontend/src/components/MarketingSite/MarketingSite.tsx",
+        "frontend/src/hooks/useQueries.ts"
+      ]
+    },
+    {
+      "description": "Secret-token-based access control initialization via URL parameter (`caffeineAdminToken`) and calling `_initializeAccessControlWithSecret` on the actor.",
+      "reason": "The BuildRequest specifies admin authentication via Internet Identity, but does not request any secret-token bootstrap/URL-parameter mechanism.",
+      "evidence": [
+        "frontend/src/hooks/useActor.ts"
+      ]
+    },
+    {
+      "description": "Footer includes third-party attribution/link to caffeine.ai with tracking parameters.",
+      "reason": "Not requested as part of the marketing site requirements and adds an external promotional/tracking link.",
+      "evidence": [
+        "frontend/src/components/Layout/SiteFooter.tsx"
+      ]
+    },
+    {
+      "description": "Theme switching infrastructure using `next-themes` ThemeProvider.",
+      "reason": "A coherent visual theme was requested, but theme-provider/dark-mode system support was not explicitly requested.",
+      "evidence": [
+        "frontend/src/App.tsx"
+      ]
+    }
+  ],
+  "confidence": 0.74,
+  "changed_files": [
+    "all_files_summary.json",
+    "backend/main.mo",
+    "frontend-file-summaries.txt",
+    "frontend/index.css",
+    "frontend/index.html",
+    "frontend/src/App.tsx",
+    "frontend/src/components/Admin/AdminInquiriesPage.tsx",
+    "frontend/src/components/Admin/AdminRouteGuard.tsx",
+    "frontend/src/components/Auth/LoginButton.tsx",
+    "frontend/src/components/Auth/ProfileSetupDialog.tsx",
+    "frontend/src/components/Contact/ContactForm.tsx",
+    "frontend/src/components/Layout/SiteFooter.tsx",
+    "frontend/src/components/Layout/SiteLayout.tsx",
+    "frontend/src/components/MarketingSite/MarketingSite.tsx",
+    "frontend/src/components/MarketingSite/sections/AboutSection.tsx",
+    "frontend/src/components/MarketingSite/sections/CapabilitiesSection.tsx",
+    "frontend/src/components/MarketingSite/sections/ContactSection.tsx",
+    "frontend/src/components/MarketingSite/sections/HomeHeroSection.tsx",
+    "frontend/src/components/MarketingSite/sections/ServicesSection.tsx",
+    "frontend/src/components/Navigation/SiteHeader.tsx",
+    "frontend/src/hooks/useActor.ts",
+    "frontend/src/hooks/useAdminInquiries.ts",
+    "frontend/src/hooks/useInternetIdentity.ts",
+    "frontend/src/hooks/useQueries.ts",
+    "frontend/src/hooks/useSubmitContactInquiry.ts",
+    "frontend/src/index.css",
+    "frontend/src/main.tsx",
+    "frontend/src/utils/urlParams.ts",
+    "frontend/tailwind.config.js",
+    "project_state.json"
+  ]
+}
