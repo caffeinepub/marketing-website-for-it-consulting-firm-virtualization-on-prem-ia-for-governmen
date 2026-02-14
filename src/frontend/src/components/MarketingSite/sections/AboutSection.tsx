@@ -1,4 +1,5 @@
 import { Award, Target, Users2 } from 'lucide-react';
+import { BRANDING } from '../../../config/branding';
 
 export default function AboutSection() {
   return (
@@ -6,7 +7,7 @@ export default function AboutSection() {
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">About SecureInfra Solutions</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">About {BRANDING.companyName}</h2>
             <p className="text-lg text-muted-foreground">
               Your trusted partner for secure, compliant infrastructure solutions.
             </p>
@@ -14,7 +15,7 @@ export default function AboutSection() {
 
           <div className="prose prose-lg max-w-none mb-12">
             <p className="text-muted-foreground leading-relaxed">
-              SecureInfra Solutions specializes in delivering enterprise-grade virtualization and on-premises 
+              {BRANDING.companyName} specializes in delivering enterprise-grade virtualization and on-premises 
               infrastructure solutions for government agencies and contractors. With deep expertise in information 
               assurance and compliance frameworks, we help organizations build and maintain secure, mission-critical 
               IT environments.

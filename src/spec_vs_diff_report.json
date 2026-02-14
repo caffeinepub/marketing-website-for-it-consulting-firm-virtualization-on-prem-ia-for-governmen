@@ -1,90 +1,44 @@
 {
   "kind": "spec_vs_diff_report",
   "version": "1.0",
-  "generatedAt": "2026-02-14T20:58:42.226Z",
-  "summary": "Most frontend sections/pages, contact form submission flow, and an admin inquiries view are implemented. The backend includes inquiry submission and admin-only listing/detail methods, but persistent storage across upgrades is not evidenced, and the stored timestamp field name does not match the requested `createdAt`. The diff also introduces several features and mechanisms not requested (user profiles, admin secret-token initialization, and branding/footer attribution).",
+  "generatedAt": "2026-02-14T21:18:11.054Z",
+  "summary": "The diff adds a frontend slug generation/validation utility and uses it in frontend branding config with a runtime console check, but it does not show the requested update to the deployment-facing project name/slug source in project_state.json. As a result, the core fix intended to unblock deployment via the project’s deployment slug appears incomplete.",
   "missing_requirements": [
     {
-      "id": "REQ-4",
-      "requirement": "Backend stores inquiries persistently in the single main Motoko actor.",
-      "reason": "The diff shows inquiries stored in in-memory `Map`/`var` fields with no `stable` variables or upgrade hooks; persistence across canister upgrades is not evidenced.",
+      "id": "REQ-10",
+      "requirement": "Update the project’s deployment-facing name/slug source so it generates a valid domain label (5–50 characters; only lowercase letters, numbers, and hyphens) and does not include parentheses, plus signs, spaces, or non-ASCII hyphen characters.",
+      "reason": "The diff updates frontend branding to compute a deploymentSlug, but does not provide evidence that the actual deployment-facing name/slug source used by the deployment system was changed. No deployment config/source-of-truth change is shown outside frontend runtime logging.",
       "evidence": [
-        "backend/main.mo"
+        "frontend/src/config/branding.ts",
+        "frontend/src/App.tsx",
+        "frontend/src/utils/slug.ts",
+        "project_state.json"
       ]
     },
     {
-      "id": "REQ-4",
-      "requirement": "Each stored inquiry includes submitted fields plus createdAt timestamp.",
-      "reason": "Inquiry records use a `submittedAt` field rather than the specified `createdAt` timestamp field.",
+      "id": "REQ-11",
+      "requirement": "In project_state.json, change the value that is currently used as the project name (\"Falconrock Consulting (virtualization + on‑prem IA for government contracts)\") to a slug-safe value that meets the domain/slug constraints.",
+      "reason": "No evidence in the provided diff summary shows the project name value in project_state.json being changed to a slug-safe string; the truncated snippet still contains non-ASCII hyphen usage (\"on‑prem\") and parentheses in descriptive text, suggesting the problematic content may remain.",
       "evidence": [
-        "backend/main.mo"
+        "project_state.json"
       ]
     }
   ],
   "hallucinated_features": [
     {
-      "description": "User profile system (get/save caller profile) and a mandatory profile setup dialog after login.",
-      "reason": "The BuildRequest does not mention user profiles or onboarding/profile collection; only admin access via Internet Identity was requested.",
-      "evidence": [
-        "backend/main.mo",
-        "frontend/src/components/Auth/ProfileSetupDialog.tsx",
-        "frontend/src/components/MarketingSite/MarketingSite.tsx",
-        "frontend/src/hooks/useQueries.ts"
-      ]
-    },
-    {
-      "description": "Secret-token-based access control initialization via URL parameter (`caffeineAdminToken`) and calling `_initializeAccessControlWithSecret` on the actor.",
-      "reason": "The BuildRequest specifies admin authentication via Internet Identity, but does not request any secret-token bootstrap/URL-parameter mechanism.",
-      "evidence": [
-        "frontend/src/hooks/useActor.ts"
-      ]
-    },
-    {
-      "description": "Footer includes third-party attribution/link to caffeine.ai with tracking parameters.",
-      "reason": "Not requested as part of the marketing site requirements and adds an external promotional/tracking link.",
-      "evidence": [
-        "frontend/src/components/Layout/SiteFooter.tsx"
-      ]
-    },
-    {
-      "description": "Theme switching infrastructure using `next-themes` ThemeProvider.",
-      "reason": "A coherent visual theme was requested, but theme-provider/dark-mode system support was not explicitly requested.",
+      "description": "Runtime deployment slug validation that logs to the browser console on app load.",
+      "reason": "The BuildRequest focuses on fixing deployment failure by updating the deployment-facing name/slug source (and explicitly updating project_state.json). Adding a non-blocking runtime console validator is not requested as part of the fix.",
       "evidence": [
         "frontend/src/App.tsx"
       ]
     }
   ],
-  "confidence": 0.74,
+  "confidence": 0.72,
   "changed_files": [
-    "all_files_summary.json",
-    "backend/main.mo",
     "frontend-file-summaries.txt",
-    "frontend/index.css",
-    "frontend/index.html",
     "frontend/src/App.tsx",
-    "frontend/src/components/Admin/AdminInquiriesPage.tsx",
-    "frontend/src/components/Admin/AdminRouteGuard.tsx",
-    "frontend/src/components/Auth/LoginButton.tsx",
-    "frontend/src/components/Auth/ProfileSetupDialog.tsx",
-    "frontend/src/components/Contact/ContactForm.tsx",
-    "frontend/src/components/Layout/SiteFooter.tsx",
-    "frontend/src/components/Layout/SiteLayout.tsx",
-    "frontend/src/components/MarketingSite/MarketingSite.tsx",
-    "frontend/src/components/MarketingSite/sections/AboutSection.tsx",
-    "frontend/src/components/MarketingSite/sections/CapabilitiesSection.tsx",
-    "frontend/src/components/MarketingSite/sections/ContactSection.tsx",
-    "frontend/src/components/MarketingSite/sections/HomeHeroSection.tsx",
-    "frontend/src/components/MarketingSite/sections/ServicesSection.tsx",
-    "frontend/src/components/Navigation/SiteHeader.tsx",
-    "frontend/src/hooks/useActor.ts",
-    "frontend/src/hooks/useAdminInquiries.ts",
-    "frontend/src/hooks/useInternetIdentity.ts",
-    "frontend/src/hooks/useQueries.ts",
-    "frontend/src/hooks/useSubmitContactInquiry.ts",
-    "frontend/src/index.css",
-    "frontend/src/main.tsx",
-    "frontend/src/utils/urlParams.ts",
-    "frontend/tailwind.config.js",
+    "frontend/src/config/branding.ts",
+    "frontend/src/utils/slug.ts",
     "project_state.json"
   ]
 }

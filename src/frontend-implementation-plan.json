@@ -1,216 +1,52 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Marketing website for IT consulting firm (virtualization + on‑prem IA for government contracts)",
+  "title": "Fix invalid generated deployment slug/domain label",
   "requirements": [
     {
-      "id": "REQ-1",
-      "summary": "Build a responsive, English-only marketing site that clearly positions the firm around virtualization and on‑prem infrastructure/IA for government contracts.",
+      "id": "REQ-10",
+      "summary": "Centralize slug generation in the frontend to always produce a valid deployment-facing domain label (5–50 chars, lowercase letters/numbers/hyphens only) and avoid parentheses/plus/spaces/non-ASCII hyphens.",
       "acceptanceCriteria": [
-        "Site renders correctly on mobile, tablet, and desktop breakpoints",
-        "Clear positioning statement references virtualization and on‑prem infrastructure/IA for government contracts",
-        "All user-facing text is in English"
+        "A deployment no longer fails with the domain/slug validation error shown in the issue.",
+        "The generated domain/slug value is between 5 and 50 characters.",
+        "The generated domain/slug value contains only letters, numbers, and hyphens (no spaces, parentheses, plus signs, or special hyphen characters)."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/App.tsx",
+          "path": "frontend/src/utils/slug.ts",
           "operation": "create",
-          "description": "Create the primary app composition for the marketing website, including responsive layout scaffolding and top-level rendering of the required sections/pages content in English."
+          "description": "Add a small utility that converts arbitrary project names into a valid domain-label slug: normalize Unicode hyphen-like characters to ASCII '-', lowercase, replace invalid separators (spaces/parentheses/plus) with '-', strip any remaining invalid characters, collapse consecutive hyphens, trim leading/trailing hyphens, and enforce 5–50 character length (including deterministic truncation if needed)."
         },
         {
-          "path": "frontend/src/components/MarketingSite/MarketingSite.tsx",
-          "operation": "create",
-          "description": "Implement the public marketing experience container that assembles the Home hero, Services, Capabilities, About, and Contact sections into a responsive flow."
-        },
-        {
-          "path": "frontend/src/components/Layout/SiteLayout.tsx",
-          "operation": "create",
-          "description": "Create a reusable responsive layout wrapper (header/main/footer) to keep spacing and typography consistent across the marketing site."
-        }
-      ]
-    },
-    {
-      "id": "REQ-2",
-      "summary": "Implement the core pages/sections (Home, Services, Capabilities, About, Contact) with clear navigation via scroll or route.",
-      "acceptanceCriteria": [
-        "Top navigation links scroll or route to each major section/page",
-        "Each section contains concise, professional copy and headings relevant to virtualization, on‑prem infrastructure, and IA for government work",
-        "Layout remains readable and usable without horizontal scrolling at common viewport widths"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/components/Navigation/SiteHeader.tsx",
-          "operation": "create",
-          "description": "Create the top navigation/header with links that scroll to (or route to) Home, Services, Capabilities, About, and Contact sections; include responsive mobile navigation. If using shadcn-ui primitives (e.g., NavigationMenu/Sheet), verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/components/MarketingSite/sections/HomeHeroSection.tsx",
-          "operation": "create",
-          "description": "Create the Home hero section with a strong value proposition explicitly mentioning virtualization and on‑prem infrastructure/IA for government contracts; ensure responsive layout and readable typography."
-        },
-        {
-          "path": "frontend/src/components/MarketingSite/sections/ServicesSection.tsx",
-          "operation": "create",
-          "description": "Create a Services section with concise, professional service cards relevant to virtualization and on‑prem infrastructure delivery for government environments. If using shadcn-ui Card components, verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/components/MarketingSite/sections/CapabilitiesSection.tsx",
-          "operation": "create",
-          "description": "Create a Capabilities section focused on government contracting/IA concerns (e.g., ATO support, compliance-minded hardening, documentation, ops handoff) with scannable headings and bullets."
-        },
-        {
-          "path": "frontend/src/components/MarketingSite/sections/AboutSection.tsx",
-          "operation": "create",
-          "description": "Create an About section with professional firm narrative, mission, and differentiators tailored to high-trust government-facing work."
-        },
-        {
-          "path": "frontend/src/components/MarketingSite/sections/ContactSection.tsx",
-          "operation": "create",
-          "description": "Create a Contact section that contains the contact form component and supporting copy (response expectations, what to include)."
-        },
-        {
-          "path": "frontend/src/components/MarketingSite/MarketingSite.tsx",
+          "path": "frontend/src/config/branding.ts",
           "operation": "modify",
-          "description": "Wire newly created sections into the public marketing container with stable anchor IDs for navigation/scroll targets."
+          "description": "Introduce a dedicated deployment-facing slug value derived via the new slug utility (e.g., `deploymentSlug`) without changing the public branding domain (falconrock.app). Ensure the derived value is the one used wherever a deployment slug/domain label is surfaced or computed within the frontend build/runtime."
         },
         {
           "path": "frontend/src/App.tsx",
           "operation": "modify",
-          "description": "Ensure the app wires the marketing site view as the default public view and connects navigation behavior (anchor scrolling and/or hash routing) so sections are reachable from the header links."
+          "description": "Add a lightweight runtime validation (non-blocking) that checks the configured/generated deployment slug against the domain-label constraints and logs a clear error if invalid, so issues are caught during local builds before deployment."
         }
       ]
     },
     {
-      "id": "REQ-3",
-      "summary": "Add a validated Contact form that submits inquiries to the backend and shows success/error states.",
+      "id": "REQ-11",
+      "summary": "Ensure the project name value used for deployment slug generation is slug-safe by providing a frontend-maintained patch workflow to update the stored project name to a compliant slug value.",
       "acceptanceCriteria": [
-        "Form validates required fields and email format before submit",
-        "On successful submit, user sees a confirmation state and the form resets",
-        "On failure, user sees an error message and can retry"
+        "project_state.json no longer contains parentheses/plus signs/non-ASCII hyphen characters in the project name value used for domain/slug generation.",
+        "The updated project name value is 5–50 characters and contains only letters, numbers, and hyphens.",
+        "Deployment proceeds past the domain/slug validation step using the updated value."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/components/Contact/ContactForm.tsx",
+          "path": "frontend/scripts/patch-project-state-projectName.ts",
           "operation": "create",
-          "description": "Implement the contact form UI (name, organization, email, message) with client-side validation, submit handling via the actor's submitContactInquiry capability, and clear success/error states. If using shadcn-ui Form/Input/Textarea/Button components, verify the component's usage instructions before implementing."
+          "description": "Create a small Node/TS script that updates the repository's project_state.json `projectName` to a slug-safe value (e.g., `falconrock-consulting-virtualization-on-prem-ia`) that meets the 5–50 character and character-set constraints. The script should be idempotent and should explicitly replace parentheses/plus/non-ASCII hyphens with safe characters, then validate before writing."
         },
         {
-          "path": "frontend/src/hooks/useSubmitContactInquiry.ts",
+          "path": "frontend/scripts/README.md",
           "operation": "create",
-          "description": "Create a React Query mutation hook that calls the backend submitContactInquiry function through useActor, and normalizes success/error states for the ContactForm."
-        },
-        {
-          "path": "frontend/src/components/MarketingSite/sections/ContactSection.tsx",
-          "operation": "modify",
-          "description": "Wire the ContactForm into the Contact section and ensure the section provides the required fields and clear submission feedback messaging."
-        }
-      ]
-    },
-    {
-      "id": "REQ-5",
-      "summary": "Create an admin-only UI for signed-in admins to review submitted contact inquiries (list + detail).",
-      "acceptanceCriteria": [
-        "Admin view requires Internet Identity sign-in",
-        "Non-admin users cannot access inquiry listings in the UI",
-        "Admin can view a list of inquiries and open an inquiry to see full details"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/components/Auth/LoginButton.tsx",
-          "operation": "create",
-          "description": "Create a Login/Logout button that uses the existing useInternetIdentity hook and clears React Query cache on logout (per selected authorization component guidance). Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/components/Auth/ProfileSetupDialog.tsx",
-          "operation": "create",
-          "description": "Add a lightweight first-login profile setup dialog that uses getCallerUserProfile/saveCallerUserProfile so authenticated users can store a human-readable name (per selected authorization component requirements). Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/components/Admin/AdminRouteGuard.tsx",
-          "operation": "create",
-          "description": "Implement an admin-only guard that requires Internet Identity authentication and checks isCallerAdmin/getCallerUserRole before rendering admin content; show an access denied state otherwise. Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/components/Admin/AdminInquiriesPage.tsx",
-          "operation": "create",
-          "description": "Create the admin inquiries view with a basic list and a detail panel/view; fetch list via getAllContactInquiries and fetch details via getContactInquiry. If using shadcn-ui Table/Dialog/Card components, verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/hooks/useAdminInquiries.ts",
-          "operation": "create",
-          "description": "Add React Query hooks for admin inquiry list/detail queries that depend on the actor from useActor and handle authorization failures gracefully (do not crash the UI)."
-        },
-        {
-          "path": "frontend/src/components/Navigation/SiteHeader.tsx",
-          "operation": "modify",
-          "description": "Include an Admin entry point (e.g., a button/link) that is only shown when the caller is authenticated and is an admin, and include the LoginButton in the header. Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/App.tsx",
-          "operation": "modify",
-          "description": "Wire an admin route/view (e.g., via hash routing or an in-app view switch) that renders AdminInquiriesPage behind AdminRouteGuard; ensure non-admins cannot access inquiry listings in the UI."
-        }
-      ]
-    },
-    {
-      "id": "REQ-6",
-      "summary": "Apply a consistent, professional, high-trust theme (not predominantly blue/purple) across the site.",
-      "acceptanceCriteria": [
-        "Theme is consistent across headings, body text, buttons, cards, and navigation",
-        "Primary palette is not predominantly blue/purple",
-        "Design feels professional, high-trust, and accessible (sufficient contrast for text and controls)"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/index.css",
-          "operation": "create",
-          "description": "Create global styles and Tailwind base layers, including CSS variables for a cohesive palette (e.g., charcoal + deep green + sand/stone accents) that avoids blue/purple dominance; apply consistent typography and spacing defaults."
-        },
-        {
-          "path": "frontend/tailwind.config.js",
-          "operation": "modify",
-          "description": "Adjust/extend theme tokens as needed to support the chosen palette/typography/spacing consistently (while continuing to use the existing CSS variable-driven color system)."
-        },
-        {
-          "path": "frontend/src/components/Layout/SiteLayout.tsx",
-          "operation": "modify",
-          "description": "Ensure layout-level styling (header/footer/background/typography scale) consistently applies the theme across all sections and the admin view."
-        },
-        {
-          "path": "frontend/src/components/Contact/ContactForm.tsx",
-          "operation": "modify",
-          "description": "Align form controls, validation messaging, and button styling to the global theme; ensure accessible contrast and focus states. If using shadcn-ui components, verify the component's usage instructions before implementing."
-        }
-      ]
-    },
-    {
-      "id": "REQ-7",
-      "summary": "Add generated static image assets (logo + hero visual) and render them in the header and hero section.",
-      "acceptanceCriteria": [
-        "Generated images are included as static assets under frontend/public/assets/generated",
-        "Logo is used in the site header/navigation",
-        "Hero visual is used in the Home hero section and scales responsively"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/public/assets/generated/it-consulting-logo.dim_512x512.png",
-          "operation": "create",
-          "description": "Add the generated logo asset as a static file at the specified path so the frontend can render it in the site header/navigation."
-        },
-        {
-          "path": "frontend/public/assets/generated/hero-datacenter.dim_1600x900.png",
-          "operation": "create",
-          "description": "Add the generated hero illustration asset as a static file at the specified path so the frontend can render it in the Home hero section responsively."
-        },
-        {
-          "path": "frontend/src/components/Navigation/SiteHeader.tsx",
-          "operation": "modify",
-          "description": "Render the logo image from frontend/public/assets/generated/it-consulting-logo.dim_512x512.png in the header/navigation with appropriate sizing for responsive breakpoints."
-        },
-        {
-          "path": "frontend/src/components/MarketingSite/sections/HomeHeroSection.tsx",
-          "operation": "modify",
-          "description": "Render the hero visual from frontend/public/assets/generated/hero-datacenter.dim_1600x900.png in the hero section and ensure it scales/crops responsively without harming readability."
+          "description": "Document how to run the project_state.json patch script locally/CI to ensure the stored project name used for deployment slug generation remains compliant, and note the exact constraints (5–50 chars; lowercase letters/numbers/hyphens only)."
         }
       ]
     }

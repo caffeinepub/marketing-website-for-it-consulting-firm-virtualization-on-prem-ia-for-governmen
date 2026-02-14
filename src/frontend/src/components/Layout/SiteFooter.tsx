@@ -1,14 +1,15 @@
 import { Heart } from 'lucide-react';
+import { BRANDING } from '../../config/branding';
 
 export default function SiteFooter() {
   const currentYear = new Date().getFullYear();
-  const appIdentifier = encodeURIComponent(window.location.hostname || 'it-consulting-site');
+  const appIdentifier = encodeURIComponent(window.location.hostname || BRANDING.domain);
 
   return (
     <footer className="border-t bg-card">
       <div className="container mx-auto px-4 py-8">
         <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-muted-foreground">
-          <p>© {currentYear} SecureInfra Solutions. All rights reserved.</p>
+          <p>© {currentYear} {BRANDING.companyName}. All rights reserved.</p>
           <p className="flex items-center gap-1.5">
             Built with <Heart className="h-3.5 w-3.5 fill-primary text-primary" /> using{' '}
             <a

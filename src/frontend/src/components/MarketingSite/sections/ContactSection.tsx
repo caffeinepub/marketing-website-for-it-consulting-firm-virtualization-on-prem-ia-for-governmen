@@ -1,5 +1,6 @@
 import ContactForm from '../../Contact/ContactForm';
 import { Mail, Phone, MapPin } from 'lucide-react';
+import { BRANDING } from '../../../config/branding';
 
 export default function ContactSection() {
   return (
@@ -32,8 +33,8 @@ export default function ContactSection() {
                     </div>
                     <div>
                       <div className="font-medium mb-1">Email</div>
-                      <a href="mailto:contact@secureinfra.example" className="text-muted-foreground hover:text-primary transition-colors">
-                        contact@secureinfra.example
+                      <a href={`mailto:${BRANDING.contactEmail}`} className="text-muted-foreground hover:text-primary transition-colors">
+                        {BRANDING.contactEmail}
                       </a>
                     </div>
                   </div>
@@ -44,8 +45,8 @@ export default function ContactSection() {
                     </div>
                     <div>
                       <div className="font-medium mb-1">Phone</div>
-                      <a href="tel:+15551234567" className="text-muted-foreground hover:text-primary transition-colors">
-                        +1 (555) 123-4567
+                      <a href={`tel:${BRANDING.phone.replace(/\D/g, '')}`} className="text-muted-foreground hover:text-primary transition-colors">
+                        {BRANDING.phone}
                       </a>
                     </div>
                   </div>
@@ -57,8 +58,8 @@ export default function ContactSection() {
                     <div>
                       <div className="font-medium mb-1">Location</div>
                       <p className="text-muted-foreground">
-                        Washington, DC Metro Area<br />
-                        Serving Federal Agencies Nationwide
+                        {BRANDING.location.primary}<br />
+                        {BRANDING.location.secondary}
                       </p>
                     </div>
                   </div>

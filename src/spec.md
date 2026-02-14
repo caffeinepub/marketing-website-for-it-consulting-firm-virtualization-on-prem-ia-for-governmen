@@ -1,14 +1,10 @@
 # Specification
 
 ## Summary
-**Goal:** Create a responsive marketing website for an IT consulting firm focused on virtualization and on‑prem infrastructure/IA work for government contracts, with a contact form and an admin-only inquiries review area.
+**Goal:** Fix deployment failures caused by an invalid generated project domain/slug by ensuring the deployment-facing name/slug source produces a valid domain label.
 
 **Planned changes:**
-- Build a responsive marketing site with clear navigation and sections/pages: Home (hero + value proposition), Services, Capabilities (government contracting/IA-focused), About, Contact.
-- Add a consistent, professional visual theme suitable for government-facing consulting (avoid blue/purple as the dominant palette).
-- Implement a Contact form (name, organization, email, message) with validation plus success/error states.
-- Add backend storage for contact inquiries (timestamped) and provide methods to create inquiries and list/read inquiries for an authenticated admin via Internet Identity.
-- Add an admin-only UI view requiring Internet Identity sign-in to list inquiries and view inquiry details.
-- Include generated static assets (logo + hero visual) in `frontend/public/assets/generated` and render them in the navbar and Home hero.
+- Update the project’s deployment-facing name/slug source so it generates a valid domain label (5–50 characters; only lowercase letters, numbers, and hyphens) without parentheses, plus signs, spaces, or non-ASCII hyphen characters.
+- Update `project_state.json` to replace the current project name value used for domain/slug generation with a slug-safe value that meets the same constraints.
 
-**User-visible outcome:** Visitors can browse a polished, mobile-friendly consulting website and submit inquiries via a contact form; an authenticated admin can sign in with Internet Identity to review submitted inquiries (list and detail).
+**User-visible outcome:** Deployments proceed past the domain/slug validation step without failing due to invalid domain/slug characters or length.

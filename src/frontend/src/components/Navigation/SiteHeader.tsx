@@ -6,6 +6,7 @@ import LoginButton from '../Auth/LoginButton';
 import { useInternetIdentity } from '../../hooks/useInternetIdentity';
 import { useGetCallerUserRole } from '../../hooks/useQueries';
 import { UserRole } from '../../backend';
+import { BRANDING } from '../../config/branding';
 
 interface SiteHeaderProps {
   currentView: 'marketing' | 'admin';
@@ -56,12 +57,12 @@ export default function SiteHeader({ currentView, onViewChange }: SiteHeaderProp
           >
             <img
               src="/assets/generated/it-consulting-logo.dim_512x512.png"
-              alt="SecureInfra Solutions"
+              alt={BRANDING.companyName}
               className="h-10 w-10"
             />
             <div className="hidden sm:block">
-              <div className="font-semibold text-lg leading-tight">SecureInfra Solutions</div>
-              <div className="text-xs text-muted-foreground">Government IT Consulting</div>
+              <div className="font-semibold text-lg leading-tight">{BRANDING.companyName}</div>
+              <div className="text-xs text-muted-foreground">{BRANDING.tagline}</div>
             </div>
           </button>
 
